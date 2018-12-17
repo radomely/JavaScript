@@ -47,7 +47,7 @@ let hurgada = 25;
 let taba = 6;
 
 let numberOfPlaces = prompt("Пожалуйста, введите число необходимых мест:");
-let answerToUser = "";
+answerToUser = "";
 if(numberOfPlaces==null){
     answerToUser = "Нам очень жаль, приходите еще!";
 }else if(numberOfPlaces == NaN || Number(numberOfPlaces) < 0){
