@@ -53,17 +53,30 @@ if(numberOfPlaces==null){
 }else if(numberOfPlaces == NaN || Number(numberOfPlaces) < 0){
     answerToUser = "Ошибка ввода";
 }else{
-    if(numberOfPlaces<=sharm){
+    if(numberOfPlaces<=taba){
+        if(confirm("Eсть место в группе Таба, согласны ли вы быть в этой группе?")){
+            answerToUser = "Приятного путешествия в группе Таба";}
+            else {
+            if(confirm("Eсть место в группе Шарм, согласны ли вы быть в этой группе?")){
+                answerToUser = "Приятного путешествия в группе Шарм";
+            }else {
+                if(confirm("Eсть место в группе Хургада, согласны ли вы быть в этой группе?"))
+                answerToUser = "Приятного путешествия в группе Хургада";
+                else
+                answerToUser = "Нам очень жаль, приходите еще!";
+                }
+            }
+    }else if(numberOfPlaces<=sharm){
         if(confirm("Eсть место в группе Шарм, согласны ли вы быть в этой группе?"))
             answerToUser = "Приятного путешествия в группе Шарм";
-            else answerToUser = "Нам очень жаль, приходите еще!";
+            else {
+                if(confirm("Eсть место в группе Хургада, согласны ли вы быть в этой группе?"))
+                    answerToUser = "Приятного путешествия в группе Хургада";
+                    else
+                    answerToUser = "Нам очень жаль, приходите еще!";}
     }else if(numberOfPlaces<=hurgada){
         if(confirm("Eсть место в группе Хургада, согласны ли вы быть в этой группе?"))
             answerToUser = "Приятного путешествия в группе Хургада";
-            else answerToUser = "Нам очень жаль, приходите еще!";
-    }else if(numberOfPlaces<=taba){
-        if(confirm("Eсть место в группе Таба, согласны ли вы быть в этой группе?"))
-            answerToUser = "Приятного путешествия в группе Таба";
             else answerToUser = "Нам очень жаль, приходите еще!";
     }else{
         answerToUser = "Извините, столько мест нет ни в одной группе!";
