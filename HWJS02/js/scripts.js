@@ -24,16 +24,16 @@ const numbers = [];
 let total = 0;
 
 do{
-  userInput = prompt("ВВедите число");
+  userInput = prompt("Введите число");
   if(userInput===null){
     break;
   }
   userInput = Number.parseFloat(userInput);
-  if( userInput === NaN){
+  if( userInput !== userInput){
     alert("Было введено не число, попробуйте еще раз")
     continue;
   }
-  numbers.push(Number.parseFloat(userInput));
+  numbers.push(userInput);
 }while(true);
 if(numbers.length !== 0){
   for(let el of numbers){
