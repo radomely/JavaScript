@@ -75,7 +75,6 @@ let attempts = 3;
 let isPasswordRight = false;
 do{
   let inputedPassword = prompt("Введите пароль");
-  console.log(inputedPassword);
   if(inputedPassword === null){
     break;
   }
