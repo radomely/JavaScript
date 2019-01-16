@@ -23,6 +23,25 @@ let userInput;
 const numbers = [];
 let total = 0;
 
+do{
+  userInput = prompt("ВВедите число");
+  if(userInput===null){
+    break;
+  }
+  userInput = Number.parseFloat(userInput);
+  if( userInput === NaN){
+    alert("Было введено не число, попробуйте еще раз")
+    continue;
+  }
+  numbers.push(Number.parseFloat(userInput));
+}while(true);
+if(numbers.length !== 0){
+  for(let el of numbers){
+    total += el;
+  }
+  alert(`Общая сумма чисел равна ${total}`)
+}
+
 
 /*
   ⚠️ ЗАДАНИЕ ПОВЫШЕННОЙ СЛОЖНОСТИ - ВЫПОЛНЯТЬ ПО ЖЕЛАНИЮ
