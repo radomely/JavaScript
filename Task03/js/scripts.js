@@ -1,7 +1,7 @@
 // /*
 //   Напишите функцию checkNumberType(num)
-  
-//   Функция получает число num как аргумент и возвращает 
+
+//   Функция получает число num как аргумент и возвращает
 //   строку "Even" если число четное и строку "Odd" если не четное.
 // */
 // function checkNumberType(num){
@@ -33,20 +33,18 @@
 // console.log(
 //     formatString("Curabitur ligula sapien, tincidunt non.")
 //   ); // вернется оригинальная строка
-  
+
 //   console.log(
 //     formatString("Vestibulum facilisis, purus nec pulvinar iaculis.")
 //   ); // вернется форматированная строка
-  
+
 //   console.log(
 //     formatString("Curabitur ligula sapien.")
 //   ); // вернется оригинальная строка
-  
+
 //   console.log(
 //     formatString("Nunc sed turpis. Curabitur a felis in nunc fringilla tristique.")
 //   ); // вернется форматированная строка
-  
-
 
 /*
   Напишите функцию checkForSpam(str)
@@ -71,7 +69,6 @@
 
 // console.log( checkForSpam('[SPAM] How to earn fast money?') ); // true
 
-
 /*  
   Написать функцию, getPx(str) 
 
@@ -92,7 +89,6 @@
 // console.log( getPx("0") === 0 ); // должно быть:  true
 // console.log( getPx(-1) ); // должно быть:  null
 // console.log( getPx(10) ); // должно быть:  null
-
 
 /*  
   Создайте фукнцию findLongestWord(str),
@@ -120,16 +116,16 @@
 // console.log(
 //     findLongestWord("The quick brown fox jumped over the lazy dog")
 //   ); // вернет 'jumped'
-  
+
 //   console.log(
 //     findLongestWord("Google do a roll")
 //   ); // вернет 'Google'
-  
+
 //   console.log(
 //     findLongestWord("May the force be with you")
 //   ); // вернет 'force'
-  
-  /*  
+
+/*  
   Создайте функцию findLargestNumber(numbers), 
   которая получает массив чисел numbers, и возвращает 
   самое большое число в массиве.
@@ -147,15 +143,15 @@
 // console.log(
 //     findLargestNumber([1, 2, 3])
 //   ); // вернет 3
-  
+
 //   console.log(
 //     findLargestNumber([27, 12, 18, 5])
 //   ); // вернет 27
-  
+
 //   console.log(
 //     findLargestNumber([31, 128, 14, 74])
 //   ); // вернет 128
-  
+
 /*  
   Есть массив уникальных чисел uniqueNumbers.
   
@@ -190,7 +186,6 @@
 //   uniqueNumbers
 // ); // [2, 1, 4, 9, 3, 12, 19, 5, 8]
 
-
 /*
   Напишите функцию filterFromArray(arr), которая 
   объявляет 1 параметр, исходный массив arr.
@@ -214,7 +209,7 @@
 //     }
 //   }
 //   return copyOfArr;
-// }; 
+// };
 
 // // Вызовы функции для проверки
 // console.log(
@@ -224,7 +219,6 @@
 // console.log(
 //   filterFromArray([12, 4, 3, 8, 17], 3, 29, 18, 4)
 // ); // [12, 8, 17]
-
 
 //  #1
 // Напишите ф-ю которая принисает число и возвращает его зеркальную копию.
@@ -264,8 +258,6 @@
 // console.log(capitalize('the quick brown fox')); //The Quick Brown Fox
 // console.log(capitalize('go to the editor')); //Go To The Editor
 
-
-
 // #3
 // Напишите ф-ю которая принемает строку и возвращает количество гласных букв в строке
 
@@ -281,8 +273,8 @@
 // }
 
 // console.log(countOfVowels('The quick brown fox')) // 5
-// console.log(countOfVowels('Example string')) // 4 
-// console.log(countOfVowels('Go to the editor')) // 6 
+// console.log(countOfVowels('Example string')) // 4
+// console.log(countOfVowels('Go to the editor')) // 6
 
 //#4
 // Напишите ф-ю которая принимает строку и букву и возвращает количество этой буквы в строке
@@ -299,7 +291,7 @@
 //  console.log(countLetter('w3school.com', 'o')) // 3
 
 // #5 Напишите ф-ю которая переводит rgb цвет в hex цвет
-// Здесь поможет Number() i toString() 
+// Здесь поможет Number() i toString()
 
 // function convertColor(str){
 //     let tmpstr;
@@ -315,7 +307,7 @@
 // console.log(convertColor('rgb(0,0,0)')) //#000000
 // console.log(convertColor('rgb(66, 134, 244)')) //#4286f4
 
-// #6 
+// #6
 // Дан непустой массив целых чисел (X). В этой задаче вам нужно вернуть массив, состоящий только из неуникальных элементов данного массива. Для этого необходимо удалить все уникальные элементы (которые присутствуют в данном массиве только один раз). Для решения этой задачи не меняйте оригинальный порядок элементов. Пример: [1, 2, 3, 1, 3], где 1 и 3 неуникальные элементы и результат будет [1, 3, 1, 3].
 
 // function nonUniqueElements(arr){
