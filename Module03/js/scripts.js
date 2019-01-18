@@ -270,5 +270,16 @@
 // }
 // console.log(unicArr);
 
+// function convertYear(year){
+//  return Math.floor(year/100)+1;
+// };
 
+// console.log(convertYear(2018)); //21
+// console.log(convertYear(1875)); //19
+// console.log(convertYear(675)); //7 
 
+// function leapYear(year){
+//     return year%4 === 0 ? "Leap" : "Not Leap" ;
+// };
+
+// console.log(leapYear(2000)); //7 
