@@ -44,7 +44,6 @@
 //     console.log(entry[0] + ":" + entry[1]);
 // }
 
-
 /*
   Напиште скрипт который определит и выведет в консоль 
   имя сотрудника который выполнил больше всех задач.
@@ -59,7 +58,7 @@
 //     helen: 1,
 //     lorence: 99
 //   };
-  
+
 // const entries = Object.entries(tasksCompleted);
 // let maxTask = 0;
 // let name = "Empty";
@@ -70,7 +69,6 @@
 //     }
 // }
 // console.log("The winner is " + name);
-
 
 /*  
   Напишите функцию countProps(obj),
@@ -86,12 +84,10 @@
 // console.log(
 //     countProps({})
 //   ); // 0
-  
+
 //   console.log(
 //     countProps({a: 1, b: 3, c: 'hello'})
 //   ); // 3
-
-
 
 /*  
   Создайте функцию isObjectEmpty(obj), которая получает 
@@ -108,17 +104,16 @@
 // console.log(
 //     isObjectEmpty({})
 //   ); // true
-  
+
 //   console.log(
 //     isObjectEmpty({a: 1})
 //   ); // false
-  
+
 //   console.log(
 //     isObjectEmpty({a: 1, b: 2})
 //   ); // false
-  
 
-  /*  
+/*  
   Напишите функцию countTotalSalary(salaries),
   получающую объект и считающую общую сумму запрплаты работников.
   
@@ -141,7 +136,7 @@
 // console.log(
 //     countTotalSalary({})
 //   ); // 0
-  
+
 //   console.log(
 //     countTotalSalary({
 //       mango: 100,
@@ -149,7 +144,6 @@
 //       alfred: 80
 //     })
 //   ); // 330
-  
 
 /*  
   Напишите функцию getAllPropValues(arr, prop), 
@@ -163,7 +157,7 @@
 //     { name: 'Mango', age: 4, mood: 'blissful'},
 //     { name: 'Ajax', age: 3, mood: 'tired' }
 //   ];
-  
+
 // function getAllPropValues(arr, prop){
 //     let arrValues = [];
 //     for(let element of arr){
@@ -174,22 +168,20 @@
 //     return arrValues;
 // }
 
-  
 //   // Вызовы функции для проверки
 //   console.log(
 //     getAllPropValues(users, 'name')
 //   ); // ['Poly', 'Mango', 'Ajax']
-  
+
 //   console.log(
 //     getAllPropValues(users, 'mood')
 //   ); // ['happy', 'blissful', 'tired']
-  
+
 //   console.log(
 //     getAllPropValues(users, 'active')
 //   ); // []
 
-
-  /*  
+/*  
   Напишите код, который бы  с помощью 
   функции-конструкора User, позволял создавать 
   объекты пользователя со следующим свойствами:
@@ -224,8 +216,7 @@
 // console.log(sergii);
 // sergii.getUserInfo();
 
-
-// /*  
+// /*
 //   Расставьте отсутствующие this в методах объекта store
 // */
 
@@ -234,19 +225,19 @@
 //   managers: ['poly', 'mango', 'ajax'],
 //   addManager(manager) {
 //     this.managers.push(manager);
-    
+
 //     console.log(this.managers);
 //   },
 //   removeManager(manager) {
 //     const idx = this.managers.indexOf(manager);
-    
+
 //     this.managers.splice(idx, 1);
-    
+
 //     console.log(this.managers);
 //   },
 //   getProducts() {
 //     console.log(this.products);
-    
+
 //     return this.products;
 //   }
 // }
@@ -256,8 +247,6 @@
 // store.removeManager('mango'); // ['poly', ajax', 'chelsey']
 
 // store.getProducts(); // ['bread', 'cheese', 'milk', 'apples']
-
-
 
 /*  
   Расставьте отсутствующие this в конструкторе объектов Account
@@ -276,8 +265,8 @@
 
 //   this.getAccountInfo = function() {
 //     console.log(`
-//       Login: ${this.login}, 
-//       Pass: ${this.password}, 
+//       Login: ${this.login},
+//       Pass: ${this.password},
 //       Type: ${this.type}
 //     `);
 //   };
@@ -293,7 +282,6 @@
 
 // account.getAccountInfo(); // Login: 'Mango', Pass: 'asdzxc', Type: 'premium'
 
-
 //////////////////////////////////////////////////////////////////////// Extra Task
 // Написать ф-ю конструктор Pizza который создает обэкты пиццы.
 // Обект должен иметь такие поля:
@@ -308,7 +296,7 @@
 // 9) метод deleteToppings который удаляет начинку из масива если она там есть
 // 10) метод deleteSousess который удаляет соус из масива если он там есть
 
-// Размеры,(sizes) начинки,(topings) соусы (souces) это обекты. 
+// Размеры,(sizes) начинки,(topings) соусы (souces) это обекты.
 // sizes
 // const BIG = {
 // price: 80,
@@ -416,45 +404,49 @@
 // forCheese.deleteToppings(SALAT);
 // console.log(francheska);
 // console.log(forCheese);
-// console.log("Price: " + francheska.totalPrice() + " Calories: " + francheska.totalCallories());//Price:  Calories: 
-// console.log("Price: " + forCheese.totalPrice() + " Calories: " + forCheese.totalCallories());//Price:  Calories: 
-
+// console.log("Price: " + francheska.totalPrice() + " Calories: " + francheska.totalCallories());//Price:  Calories:
+// console.log("Price: " + forCheese.totalPrice() + " Calories: " + forCheese.totalCallories());//Price:  Calories:
 
 // Написати калькулятор за допомогою ф-ї конструктора. Ця ф-я створює обєкт з  методами read(), sum(), mul(), addMethod(name, function);
 // Метод read() запитує в користувача числа за допомогою prompt і запамятовує їх.
 // Метод read() працює до тих пір поки користувач не натисне Cancel;
 // Метод sum() виводить в консоль суму всіх чисел що ввели в процесі роботи метода read().
 // Метод console.log(calculator.sum()) // 15() виводить в консоль добуток всіх чисел.
-// Метод addMethod(name, function) вчить калькулятор нової операції. 
+// Метод addMethod(name, function) вчить калькулятор нової операції.
 // параметр name - назва нового метода
 // параметр function - код нового метода.
 // За допомогою метода addMethod(name, function) додати в калькулятор новий функціонад який буде знаходити різницю всіх введених цифр які отримали при використанні метода read();
 
-function Calculator(){
-this.inNumArr = [];
-this.read = function(){
-  let x=0;
-  while(true){
-  x=prompt("Введите число:");
-  if(x===null){
-    break;} else {
-      this.inNumArr.push(Number.parseFloat(x));
+function Calculator() {
+  this.inNumArr = [];
+  this.read = function() {
+    let x = 0;
+    while (true) {
+      x = prompt("Введите число:");
+      if (x === null) {
+        break;
+      } else {
+        this.inNumArr.push(Number.parseFloat(x));
+      }
     }
-  }
-};
-this.sum = function(){return this.inNumArr.reduce((acc,el)=>acc+el,0)};
-this.mul = function(){return this.inNumArr.reduce((acc,el)=>acc*el,1)};
-this.addMethod = function(name, functionX){
-  this[name] = functionX;
-};
-};
-const functionX = function(){
-  return this.inNumArr.reduce((acc,el)=>acc-el,0)
+  };
+  this.sum = function() {
+    return this.inNumArr.reduce((acc, el) => acc + el, 0);
+  };
+  this.mul = function() {
+    return this.inNumArr.reduce((acc, el) => acc * el, 1);
+  };
+  this.addMethod = function(name, functionX) {
+    this[name] = functionX;
+  };
 }
+const functionX = function() {
+  return this.inNumArr.reduce((acc, el) => acc - el, 0);
+};
 //////////////
 let calculator = new Calculator();
 calculator.read(); // вводимо 5 цифр (1,2,3,4,5) після цього натискаємо Cancel і метод read() зупиняє роботу
 console.log(calculator.sum()); // 15
 console.log(calculator.mul()); // 120
-calculator.addMethod('minus', functionX); // додається метод на віднімання
+calculator.addMethod("minus", functionX); // додається метод на віднімання
 console.log(calculator.minus()); // -13
