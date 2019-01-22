@@ -38,14 +38,14 @@
 
 const logins = ["Mango", "robotGoogles", "Poly", "Aj4x1sBozz", "qwerty123"];
 
-const isLoginValid = login => login >= 4 && login <= 16 ? true : false;
+const isLoginValid = login => login >= 4 && login <= 16;
 
-const isLoginUnique = (login, allLogins = logins) => !allLogins.includes(login);
+const isLoginUnique = (allLogins, login) => !allLogins.includes(login);
 
 const addLogin = function(login, allLogins = logins) {
     if (!isLoginValid(login.length)){
         console.log('Ошибка! Логин должен быть от 4 до 16 символов');
-    } else if (isLoginUnique(login)){
+    } else if (isLoginUnique(allLogins, login)){
         allLogins.push(allLogins, login);
         console.log('Логин успешно добавлен!');
     } else {
