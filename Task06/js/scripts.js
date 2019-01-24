@@ -25,7 +25,7 @@
 //     this.depositIncome += x.amount*(percent/12)*x.period;
 //     } else if (x.type==="compound"){
 //         let result = x.amount*Math.pow((1+percent/12),x.period)-x.amount;
-//         console.log(result);    
+//         console.log(result);
 //     this.depositIncome += result;
 //     }else{
 //     return;
@@ -44,7 +44,7 @@
 //     this.creditCosts += y.amount*(k*y.period-1);
 //     } else if (y.type==="simple"){
 //         let result = ((2*y.amount-((y.amount*(y.period-1))/y.period))/2)*y.period*percent;
-//         console.log(result);    
+//         console.log(result);
 //     this.creditCosts += result;
 //     } else {
 //     return;
@@ -67,7 +67,7 @@
 // };
 // // 7) showProfit //метод що показує прибуток (різниця доходів і витрат)
 // Account.prototype.showProfit = function(){
-//     console.log(this.depositIncome-this.credits); 
+//     console.log(this.depositIncome-this.credits);
 //     return this.depositIncome-this.credits;
 // };
 // // 8) getCash //метод що приймає число і зменьшує баланс юзера так як він знімає готівку з рахкнку
@@ -118,8 +118,7 @@
 // //     period: 15 // період вказуємо в роках
 // // }
 
-
-// // simple deposit formula https://www.rapidtables.com/calc/finance/simple-interest-calculation.html 
+// // simple deposit formula https://www.rapidtables.com/calc/finance/simple-interest-calculation.html
 // // compound deposit formula https://www.rapidtables.com/calc/finance/compound-interest-formula.html
 
 // // annuity credit formula
@@ -159,11 +158,6 @@
 // // 12)Запускаєм метод closeCredit(id)
 // // 13)Запускаєм метод closeDeposit(id)
 
-
-
-
-
-
 /*
   Создать функцию-конструктор Account, которая добавляет будущему
   объекту поля login, email и friendsCount. 
@@ -191,7 +185,6 @@
 // obj1.getAccountInfo();
 // console.log(obj1);
 
-
 /*
   Напишите ES6 класс StringBuilder.
   
@@ -212,13 +205,13 @@
       ее в начало и в конец значения поля value
 */
 
-const builder = new StringBuilder('.');
+const builder = new StringBuilder(".");
 
-builder.append('^'); 
+builder.append("^");
 console.log(builder.getValue()); // '.^'
 
-builder.prepend('^'); 
+builder.prepend("^");
 console.log(builder.getValue()); // '^.^'
 
-builder.pad('='); 
+builder.pad("=");
 console.log(builder.getValue()); // '=^.^='
