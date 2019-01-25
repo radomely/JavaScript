@@ -9,7 +9,7 @@
   Добавьте классы и атрибуты.
 */
 
-function createMovieCard(){
+function createMovieCard() {
   let movieDiv = document.createElement("div");
   movieDiv.classList.add("movie");
   let img = document.createElement("img");
@@ -26,7 +26,8 @@ function createMovieCard(){
   movieBodyDiv.append(movieTitleH2);
   let movieDescriptionP = document.createElement("p");
   movieDescriptionP.classList.add("movie__description");
-  movieDescriptionP.textContent = "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.";
+  movieDescriptionP.textContent =
+    "Spanning the years 1945 to 1955, a chronicle of the fictional Italian-American Corleone crime family. When organized crime family patriarch, Vito Corleone barely survives an attempt on his life, his youngest son, Michael steps in to take care of the would-be killers, launching a campaign of bloody revenge.";
   movieBodyDiv.append(movieDescriptionP);
   let movieDateP = document.createElement("p");
   movieDateP.classList.add("movie__date");

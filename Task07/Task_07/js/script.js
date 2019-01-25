@@ -16,14 +16,15 @@
 
 const root = document.querySelector("#root");
 
-function createBoxes(num){
+function createBoxes(num) {
   const result = document.createElement("div");
   result.classList.add("result");
-  for(let i=0;i<num;i++){
+  for (let i = 0; i < num; i++) {
     let div = document.createElement("div");
-    div.style.backgroundColor = "#" + Math.floor(Math.random() * 16777216).toString(16);
-    div.style.width = 30+(i*10) + "px";
-    div.style.height = 30+(i*10) + "px";
+    div.style.backgroundColor =
+      "#" + Math.floor(Math.random() * 16777216).toString(16);
+    div.style.width = 30 + i * 10 + "px";
+    div.style.height = 30 + i * 10 + "px";
     result.append(div);
   }
   root.append(result);

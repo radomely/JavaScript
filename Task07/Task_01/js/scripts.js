@@ -10,5 +10,12 @@
     Категория: Животные
     Количество вложенных li: 4
 */
-let ulArray =  Array.from(document.querySelector(".categories").children);
-ulArray.map(el=>console.log("Категория: " + el.firstChild.textContent.trim() + "\nКоличество вложенных li: " + el.children[0].children.length));
+let ulArray = Array.from(document.querySelector(".categories").children);
+ulArray.map(el =>
+  console.log(
+    "Категория: " +
+      el.firstChild.textContent.trim() +
+      "\nКоличество вложенных li: " +
+      el.children[0].children.length
+  )
+);

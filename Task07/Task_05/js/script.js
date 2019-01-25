@@ -12,7 +12,10 @@
 
 const inputArray = Array.from(document.querySelectorAll("input"));
 
-function collectInputData(inputs){
-  return inputs.reduce((acc, el)=>el.hasAttribute("checked")? acc.concat(el.value):acc,[]);
+function collectInputData(inputs) {
+  return inputs.reduce(
+    (acc, el) => (el.hasAttribute("checked") ? acc.concat(el.value) : acc),
+    []
+  );
 }
 console.log(collectInputData(inputArray));
