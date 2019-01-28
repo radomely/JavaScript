@@ -42,32 +42,32 @@
 
 // box.addEventListener("click",handleClick);
 
-
 class Calculator {
-    constructor() {
-         // this = {}
-         this.a = null;
-         this.b = null;
+  constructor() {
+    // this = {}
+    this.a = null;
+    this.b = null;
 
-         this.getValue = this.getValue.bind(this);
-         this.sum = this.sum.bind(this);
-    }
+    this.getValue = this.getValue.bind(this);
+    this.sum = this.sum.bind(this);
+  }
 
-    getValue() {
-         console.log(this);
-         this.a = Number(prompt('Enter number'));
-         this.b = Number(prompt('Enter number'));
-         a.textContent = this.a;
-         b.textContent = this.b;
-    }
+  getValue() {
+    console.log(this);
+    this.a = Number(prompt("Enter number"));
+    this.b = Number(prompt("Enter number"));
+    a.textContent = this.a;
+    b.textContent = this.b;
+  }
 
-    sum() {
-         console.log(this);
-         sum.textContent = this.a + this.b;
-    }
+  sum() {
+    console.log(this);
+    sum.textContent = this.a + this.b;
+  }
 }
 
 let machine = new Calculator();
 
-startBtn.addEventListener('click',machine.getValue);
-sumBtn.addEventListener('click', machine.sum);b 
+startBtn.addEventListener("click", machine.getValue);
+sumBtn.addEventListener("click", machine.sum);
+b;
