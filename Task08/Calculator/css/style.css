@@ -1,0 +1,44 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+.box {
+    display: flex;
+    justify-content: space-between;
+}
+.calculator, .sum, .minus, .mult, .divide, .pow, .get-Value {
+    margin: auto;
+    padding: 20px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 30px;
+    text-align: center;
+}
+.calculator{
+    font-size: 60px;
+    color: #190cd1;
+}
+.get-Value {
+    background-color: rgb(189, 155, 155);
+}
+.sum {
+    background-color: rgb(228, 79, 79);
+}
+.minus{
+    background-color: rgb(63, 206, 206);
+}
+.mult{
+    background-color: rgb(79, 228, 116);
+    text-align: center;
+}
+.divide{
+    background-color: rgb(228, 79, 196);
+}
+.pow{
+    background-color: rgb(213, 228, 79);
+}
+#sum, #minus, #mult, #divide, #pow {
+    font-size: 30px;
+    color: rgb(6, 90, 48);
+}
