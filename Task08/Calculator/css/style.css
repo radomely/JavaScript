@@ -38,7 +38,7 @@
 .pow{
     background-color: rgb(213, 228, 79);
 }
-#sum, #minus, #mult, #divide, #pow {
+#sum, #minus, #mult, #divide, #pow, #a, #b {
     font-size: 30px;
     color: rgb(6, 90, 48);
 }

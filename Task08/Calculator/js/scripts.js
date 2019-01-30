@@ -70,4 +70,4 @@ class Calculator {
 let machine = new Calculator();
 
 startBtn.addEventListener('click',machine.getValue);
-sumBtn.addEventListener('click', machine.sum);
+sumBtn.addEventListener('click', machine.sum);b 

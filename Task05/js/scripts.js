@@ -76,7 +76,7 @@
 // const result = scientist.filter(el=>el.year>=1800 && el.year<1900);
 // console.log(result);
 // // 2) знайти суму років скільки прожили всі вченні
-// const sumOfyears = scientist.reduce((sum,el)=>sum += el.passed-el.year,0)
+const sumOfyears = scientist.reduce((sum,el)=>sum += el.passed-el.year,0)
 // console.log(sumOfyears);
 // // 3) Відсортувати вчених по алфавіту
 // const sortByName = scientist.sort((a,b)=>a.first>b.first? 1 : -1).slice();
