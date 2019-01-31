@@ -7,4 +7,4 @@
 const nav = document.querySelector(".nav");
 const header = document.querySelector(".header");
 
-console.log(header.offsetHeight)
+console.log(header.offsetHeight);
