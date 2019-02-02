@@ -1,0 +1,20 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+#gallery{
+    width: 350px;
+    display: flex;
+    flex-wrap: wrap;
+}
+.modal{
+    position: absolute;
+    padding: 20px 30px;
+    border: none;
+    top: 30px;
+    left: 50%;
+    background-color: blue;
+    outline: none;
+    transition: 0.3s ease all;
+    /*transform: translate(-50%);*/
+}
