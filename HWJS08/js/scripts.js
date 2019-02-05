@@ -52,52 +52,58 @@
   Замените пути на соотвествующие вашим, или назовите изображения аналогично.
 */
 
-// "use strict"
+"use strict"
 
-// const galleryItems = [
-//     { preview: 'img/preview-1.jpeg', fullview: 'img/fullview-1.jpeg', alt: "alt text 1" },
-//     { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
-//     { preview: 'img/preview-3.jpeg', fullview: 'img/fullview-3.jpeg', alt: "alt text 3" },
-//     { preview: 'img/preview-4.jpeg', fullview: 'img/fullview-4.jpeg', alt: "alt text 4" },
-//     { preview: 'img/preview-5.jpeg', fullview: 'img/fullview-5.jpeg', alt: "alt text 5" },
-//     { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
-//   ];
+const galleryItems = [
+    { preview: 'img/preview-1.jpeg', fullview: 'img/fullview-1.jpeg', alt: "alt text 1" },
+    { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
+    { preview: 'img/preview-3.jpeg', fullview: 'img/fullview-3.jpeg', alt: "alt text 3" },
+    { preview: 'img/preview-4.jpeg', fullview: 'img/fullview-4.jpeg', alt: "alt text 4" },
+    { preview: 'img/preview-5.jpeg', fullview: 'img/fullview-5.jpeg', alt: "alt text 5" },
+    { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
+  ];
 
-// function previewGenerator (arrayOfgalleryItems) {
-//   let preview = document.createElement("ul");
-//   preview.classList.add("preview");
-//   for(let item of arrayOfgalleryItems){
-//     let li = document.createElement("li");
-//     let img = document.createElement("img");
-//     img.setAttribute("src", item.preview);
-//     img.setAttribute("data-fullview", item.fullview);
-//     img.setAttribute("alt", item.alt);
-//     li.append(img);
-//     preview.append(li);
-//   }
-// return preview;
-// }
+class Gallery{
+  constructor (obj) {
+    this.obj = obj;
+    this.fullview = document.createElement("div");
+    this.fullviewImg = document.createElement("img");
+    this.preview = document.createElement("ul");
+    this.pageGenerator();
+    this.switchImage = this.switchImage.bind(this);
+    this.preview.addEventListener("click", this.switchImage);
+  }
 
-// const root = document.querySelector(".js-image-gallery");
+  pageGenerator(){
+    this.fullview.classList.add("fullview");
+    this.obj.parentNode.append(this.fullview);
+    this.fullviewImg.setAttribute("src", this.obj.items[this.obj.defaultActiveItem-1].fullview);
+    this.fullviewImg.setAttribute("alt", this.obj.items[this.obj.defaultActiveItem-1].alt);
+    this.fullview.append(this.fullviewImg);  
+    this.preview.classList.add("preview");
+    for(let i = 0; i < this.obj.items.length; i++){
+      let li = document.createElement("li");
+      let img = document.createElement("img");
+      img.setAttribute("src", this.obj.items[i].preview);
+      img.setAttribute("data-fullview", this.obj.items[i].fullview);
+      img.setAttribute("alt", this.obj.items[i].alt);
+      if(this.obj.defaultActiveItem-1 !== i) img.classList.add("passive");
+      li.append(img);
+      this.preview.append(li);
+      this.obj.parentNode.append(this.preview);
+    }
+  }
 
-// const fullview = document.createElement("div");
-// fullview.classList.add("fullview");
-// root.append(fullview);
-// const fullviewImg = document.createElement("img");
-// fullviewImg.setAttribute("src", "img/fullview-1.jpeg");
-// fullviewImg.setAttribute("alt", "alt text 1");
-// fullview.append(fullviewImg); 
-// let preview = previewGenerator(galleryItems);
-// root.append(preview);
-
-// preview.addEventListener("click", (event)=> {
-//   if(event.target.nodeName !== "IMG") {
-//     return;
-//   }
-//   fullviewImg.setAttribute("src", event.target.getAttribute("data-fullview"));
-//   Array.from(preview.querySelectorAll("img")).map(el => {el.classList.add("passive")});
-//   event.target.classList.remove("passive"); 
-// });
+  switchImage (event){
+    if(event.target.nodeName !== "IMG") {
+      return;
+    }
+    this.fullviewImg.setAttribute("src", event.target.getAttribute("data-fullview"));
+    this.fullviewImg.setAttribute("alt", event.target.getAttribute("alt"));
+    Array.from(this.preview.querySelectorAll("img")).map(el => {el.classList.add("passive")});
+    event.target.classList.remove("passive"); 
+  }
+}
 
   /*
     ⚠️ ЗАДАНИЕ ПОВЫШЕННОЙ СЛОЖНОСТИ - ВЫПОЛНЯТЬ ПО ЖЕЛАНИЮ
@@ -114,66 +120,10 @@
     Тогда создание экземпляра будет выглядеть следующим образом.
   */
   
-  // new Gallery({
-  //   items: galleryItems,
-  //   parentNode: document.querySelector('.image-gallery'),
-  //   defaultActiveItem: 1
-  // });
-  
-  /* Далее плагин работает в автономном режиме */
-
-  "use strict"
-
-const galleryItems = [
-    { preview: 'img/preview-1.jpeg', fullview: 'img/fullview-1.jpeg', alt: "alt text 1" },
-    { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
-    { preview: 'img/preview-3.jpeg', fullview: 'img/fullview-3.jpeg', alt: "alt text 3" },
-    { preview: 'img/preview-4.jpeg', fullview: 'img/fullview-4.jpeg', alt: "alt text 4" },
-    { preview: 'img/preview-5.jpeg', fullview: 'img/fullview-5.jpeg', alt: "alt text 5" },
-    { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
-  ];
-
-class Gallery{
-  constructor (obj) {
-    this.obj = obj;
-    const fullview = document.createElement("div");
-    fullview.classList.add("fullview");
-    this.obj.parentNode.append(fullview);
-    const fullviewImg = document.createElement("img");
-    fullviewImg.setAttribute("src", "img/fullview-1.jpeg");
-    fullviewImg.setAttribute("alt", "alt text 1");
-    fullview.append(fullviewImg); 
-    let preview = previewGenerator(galleryItems);
-    root.append(preview);
-  
-    preview.addEventListener("click", (event)=> {
-      if(event.target.nodeName !== "IMG") {
-        return;
-      }
-      fullviewImg.setAttribute("src", event.target.getAttribute("data-fullview"));
-      Array.from(preview.querySelectorAll("img")).map(el => {el.classList.add("passive")});
-      event.target.classList.remove("passive"); 
-    });
-  }
-
-  previewGenerator (arrayOfgalleryItems) {
-    let preview = document.createElement("ul");
-    preview.classList.add("preview");
-    for(let item of arrayOfgalleryItems){
-      let li = document.createElement("li");
-      let img = document.createElement("img");
-      img.setAttribute("src", item.preview);
-      img.setAttribute("data-fullview", item.fullview);
-      img.setAttribute("alt", item.alt);
-      li.append(img);
-      preview.append(li);
-    }
-  return preview;
-  }
-}
-
-let gallery = new Gallery({
+  new Gallery({
     items: galleryItems,
     parentNode: document.querySelector('.image-gallery'),
     defaultActiveItem: 1
   });
+  
+  /* Далее плагин работает в автономном режиме */
