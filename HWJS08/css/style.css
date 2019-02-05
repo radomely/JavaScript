@@ -1,0 +1,32 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.image-gallery{
+    width: 1200px;
+    margin: 12px auto;
+}
+img{
+    width: 100%; 
+    display: block;
+}
+.fullview {
+    margin-bottom: 10px;
+    padding: 5px;
+    box-shadow: 0 0 5px 1px #999999;
+}
+.preview{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 0 5px 1px #999999; 
+}
+.passive{
+    filter: grayscale(100%);
+}
+li{
+    padding: 5px;
+}
+li:hover{ 
+    outline: 5px solid #0000ff;
+}

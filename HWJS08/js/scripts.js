@@ -52,16 +52,53 @@
   Замените пути на соотвествующие вашим, или назовите изображения аналогично.
 */
 
-const galleryItems = [
-    { preview: 'img/preview-1.jpeg', fullview: 'img/fullview-1.jpeg', alt: "alt text 1" },
-    { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
-    { preview: 'img/preview-3.jpeg', fullview: 'img/fullview-3.jpeg', alt: "alt text 3" },
-    { preview: 'img/preview-4.jpeg', fullview: 'img/fullview-4.jpeg', alt: "alt text 4" },
-    { preview: 'img/preview-5.jpeg', fullview: 'img/fullview-5.jpeg', alt: "alt text 5" },
-    { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
-  ];
-  
-  
+// "use strict"
+
+// const galleryItems = [
+//     { preview: 'img/preview-1.jpeg', fullview: 'img/fullview-1.jpeg', alt: "alt text 1" },
+//     { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
+//     { preview: 'img/preview-3.jpeg', fullview: 'img/fullview-3.jpeg', alt: "alt text 3" },
+//     { preview: 'img/preview-4.jpeg', fullview: 'img/fullview-4.jpeg', alt: "alt text 4" },
+//     { preview: 'img/preview-5.jpeg', fullview: 'img/fullview-5.jpeg', alt: "alt text 5" },
+//     { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
+//   ];
+
+// function previewGenerator (arrayOfgalleryItems) {
+//   let preview = document.createElement("ul");
+//   preview.classList.add("preview");
+//   for(let item of arrayOfgalleryItems){
+//     let li = document.createElement("li");
+//     let img = document.createElement("img");
+//     img.setAttribute("src", item.preview);
+//     img.setAttribute("data-fullview", item.fullview);
+//     img.setAttribute("alt", item.alt);
+//     li.append(img);
+//     preview.append(li);
+//   }
+// return preview;
+// }
+
+// const root = document.querySelector(".js-image-gallery");
+
+// const fullview = document.createElement("div");
+// fullview.classList.add("fullview");
+// root.append(fullview);
+// const fullviewImg = document.createElement("img");
+// fullviewImg.setAttribute("src", "img/fullview-1.jpeg");
+// fullviewImg.setAttribute("alt", "alt text 1");
+// fullview.append(fullviewImg); 
+// let preview = previewGenerator(galleryItems);
+// root.append(preview);
+
+// preview.addEventListener("click", (event)=> {
+//   if(event.target.nodeName !== "IMG") {
+//     return;
+//   }
+//   fullviewImg.setAttribute("src", event.target.getAttribute("data-fullview"));
+//   Array.from(preview.querySelectorAll("img")).map(el => {el.classList.add("passive")});
+//   event.target.classList.remove("passive"); 
+// });
+
   /*
     ⚠️ ЗАДАНИЕ ПОВЫШЕННОЙ СЛОЖНОСТИ - ВЫПОЛНЯТЬ ПО ЖЕЛАНИЮ
     
@@ -77,10 +114,66 @@ const galleryItems = [
     Тогда создание экземпляра будет выглядеть следующим образом.
   */
   
-  new Gallery({
+  // new Gallery({
+  //   items: galleryItems,
+  //   parentNode: document.querySelector('.image-gallery'),
+  //   defaultActiveItem: 1
+  // });
+  
+  /* Далее плагин работает в автономном режиме */
+
+  "use strict"
+
+const galleryItems = [
+    { preview: 'img/preview-1.jpeg', fullview: 'img/fullview-1.jpeg', alt: "alt text 1" },
+    { preview: 'img/preview-2.jpeg', fullview: 'img/fullview-2.jpeg', alt: "alt text 2" },
+    { preview: 'img/preview-3.jpeg', fullview: 'img/fullview-3.jpeg', alt: "alt text 3" },
+    { preview: 'img/preview-4.jpeg', fullview: 'img/fullview-4.jpeg', alt: "alt text 4" },
+    { preview: 'img/preview-5.jpeg', fullview: 'img/fullview-5.jpeg', alt: "alt text 5" },
+    { preview: 'img/preview-6.jpeg', fullview: 'img/fullview-6.jpeg', alt: "alt text 6" },
+  ];
+
+class Gallery{
+  constructor (obj) {
+    this.obj = obj;
+    const fullview = document.createElement("div");
+    fullview.classList.add("fullview");
+    this.obj.parentNode.append(fullview);
+    const fullviewImg = document.createElement("img");
+    fullviewImg.setAttribute("src", "img/fullview-1.jpeg");
+    fullviewImg.setAttribute("alt", "alt text 1");
+    fullview.append(fullviewImg); 
+    let preview = previewGenerator(galleryItems);
+    root.append(preview);
+  
+    preview.addEventListener("click", (event)=> {
+      if(event.target.nodeName !== "IMG") {
+        return;
+      }
+      fullviewImg.setAttribute("src", event.target.getAttribute("data-fullview"));
+      Array.from(preview.querySelectorAll("img")).map(el => {el.classList.add("passive")});
+      event.target.classList.remove("passive"); 
+    });
+  }
+
+  previewGenerator (arrayOfgalleryItems) {
+    let preview = document.createElement("ul");
+    preview.classList.add("preview");
+    for(let item of arrayOfgalleryItems){
+      let li = document.createElement("li");
+      let img = document.createElement("img");
+      img.setAttribute("src", item.preview);
+      img.setAttribute("data-fullview", item.fullview);
+      img.setAttribute("alt", item.alt);
+      li.append(img);
+      preview.append(li);
+    }
+  return preview;
+  }
+}
+
+let gallery = new Gallery({
     items: galleryItems,
     parentNode: document.querySelector('.image-gallery'),
     defaultActiveItem: 1
   });
-  
-  /* Далее плагин работает в автономном режиме */
