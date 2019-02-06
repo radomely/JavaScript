@@ -9,7 +9,7 @@
 // yputube key AIzaSyAGwWGzULP4Q9plH7a9ATpZW_8o2ZgJOH8 (edited) 
 
 let table = document.querySelector(".tableOfTrack");
-let body = document.querySelector("body");
+const modalContent = document.querySelector(".modal-content");
 
 fetch("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=412e51e107155c7ffabd155a02371cbd&format=json")
     .then(res => res.json())
@@ -30,7 +30,7 @@ fetch("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=412e5
    function playVideo(data){
        console.log(data.items[0].id.videoId)
     let videoID = data.items[0].id.videoId;
-    body.innerHTML = '<iframe src=' + `https://www.youtube.com/embed/${videoID}?autoplay=1` + ' frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>';
+    modalContent.innerHTML += '<iframe src=' + `https://www.youtube.com/embed/${videoID}?autoplay=1` + ' frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>';
    }
 
 table.addEventListener("click", playVideoYoutube);
@@ -44,6 +44,20 @@ function playVideoYoutube({target}){
     .catch(err => {
         console.log(err)
     })
+    openModal();
 }
 
-// items[""0""].id.videoId
+//////////////////////////////
+const modalWindow = document.querySelector(".js-modal-backdrop");
+const closeModalBtn = document.querySelector(".close-btn"); 
+
+
+function openModal () {
+    modalWindow.classList.remove("modal-hidden");
+  };
+
+modalWindow.addEventListener("click", closeModal);
+function closeModal(event){
+  if(event.target != modalWindow && event.target != closeModalBtn) return; 
+  event.currentTarget.classList.add("modal-hidden"); 
+};
