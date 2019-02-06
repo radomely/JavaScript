@@ -141,3 +141,8 @@ body {
   cursor: pointer;
   font-family: inherit;
 }
+
+iframe{
+  width: 300px;
+  height: 300px;
+}

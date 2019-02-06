@@ -30,7 +30,7 @@ fetch("http://ws.audioscrobbler.com/2.0/?method=chart.gettoptracks&api_key=412e5
    function playVideo(data){
        console.log(data.items[0].id.videoId)
     let videoID = data.items[0].id.videoId;
-    modalContent.innerHTML += '<iframe src=' + `https://www.youtube.com/embed/${videoID}?autoplay=1` + ' frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>';
+    modalContent.innerHTML = '<iframe src=' + `https://www.youtube.com/embed/${videoID}?autoplay=1` + ' frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>';
    }
 
 table.addEventListener("click", playVideoYoutube);
