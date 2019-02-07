@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>GalleryTemplate</title>
+</head>
+<body>
+    <div class="content-placeholder"></div>
+    <template id="template">
+    <h2 class="gallery-title">{{title}}</h2>
+    <div class="gallery-content">
+        {{#each items}}
+        <div class="gallery-item">
+        <img class="gallery-img" src={{img}} alt={{text}}>
+        <p class="gallery-text">{{text}}</p>
+        </div>
+        {{/each}}
+    </div>
+    </template>
+    <script src="./js/handlebars-v4.0.12.js"></script>
+    <script src="./js/scripts.js"></script>
+</body>
+</html>
