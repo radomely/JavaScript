@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono);
+
 * {
     box-sizing: border-box;
     padding: 0;
@@ -9,10 +11,10 @@
     flex-wrap: wrap;
   }
   .root {
-    min-height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
   }
   
   .stopwatch {
@@ -46,7 +48,7 @@
     font-family: "Roboto Mono", monospace;
     font-size: 20px;
     overflow: auto;
-    width: 100px;
+    width: 110px;
     max-height: 200px;
     margin: 10px;
   }

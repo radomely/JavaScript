@@ -101,7 +101,6 @@ class Stopwatch{
   * Логика работы кнопки Start
   */
   buttonHandler (event){
-    console.log(this);
     if (this.id !== null) {
       this.pause(event);
     } else if (this.pauseTime !== null){
