@@ -5,7 +5,11 @@
   }
   
   body {
-    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .root {
+    min-height: 30vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -47,6 +51,16 @@
     margin: 10px;
   }
 
-  .active {
-    background-color: #2196F3;
+  .pause-btn-active {
+    background-color: #0000FF;
+  }
+  .reset-btn-active {
+    background-color: #FF0000;
+  }
+  .continue-btn-active {
+    background-color: #00FF00;
+  }
+  .lap-btn-active {
+    background-color: #FFFF00;
+    color: #212121;
   }

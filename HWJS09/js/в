@@ -1,0 +1,193 @@
+/*
+  Создайте скрипт секундомера.  
+  По ссылке можно посмотреть пример выбрав Stopwatch http://www.online-stopwatch.com/full-screen-stopwatch/
+  
+  Изначально в HTML есть разметка:
+  
+  <div class="stopwatch">
+    <p class="time js-time">00:00.0</p>
+    <button class="btn js-start">Start</button>
+    <button class="btn js-take-lap">Lap</button>
+    <button class="btn js-reset">Reset</button>
+  </div>
+  <ul class="laps js-laps"></ul>
+  
+  Добавьте следующий функционал:
+  
+  - При нажатии на кнопку button.js-start, запускается таймер, который считает время 
+    со старта и до текущего момента времени, обновляя содержимое элемента p.js-time 
+    новым значение времени в формате xx:xx.x (минуты:секунды.сотни_миллисекунд).
+       
+    🔔 Подсказка: так как необходимо отображать только сотни миллисекунд, интервал
+                  достаточно повторять не чаще чем 1 раз в 100 мс.
+    
+  - Когда секундомер запущен, текст кнопки button.js-start меняется на 'Pause', 
+    а функционал при клике превращается в оставновку секундомера без сброса 
+    значений времени.------------------
+    
+    🔔 Подсказка: вам понадобится буль который описывает состояние таймера активен/неактивен.
+  
+  - Если секундомер находится в состоянии паузы, текст на кнопке button.js-start
+    меняется на 'Continue'. При следующем клике в нее, продолжается отсчет времени, 
+    а текст меняется на 'Pause'. То есть если во время нажатия 'Pause' прошло 6 секунд 
+    со старта, при нажатии 'Continue' 10 секунд спустя, секундомер продолжит отсчет времени 
+    с 6 секунд, а не с 16. 
+    
+    🔔 Подсказка: сохраните время секундомера на момент паузы и используйте его 
+                  при рассчете текущего времени после возобновления таймера отнимая
+                  это значение от времени запуска таймера.
+    
+  - Если секундомер находится в активном состоянии или в состоянии паузы, кнопка 
+    button.js-reset должна быть активна (на нее можно кликнуть), в противном случае
+    disabled. Функционал при клике - остановка таймера и сброс всех полей в исходное состояние.
+    
+  - Функционал кнопки button.js-take-lap при клике - сохранение текущего времени секундомера 
+    в массив и добавление в ul.js-laps нового li с сохраненным временем в формате xx:xx.x
+*/
+
+/*
+  ⚠️ ЗАДАНИЕ ПОВЫШЕННОЙ СЛОЖНОСТИ - ВЫПОЛНЯТЬ ПО ЖЕЛАНИЮ
+  
+  Выполните домашнее задание используя класс с полями и методами.
+  
+  На вход класс Stopwatch принимает только ссылку на DOM-узел в котором будет 
+  динамически создана вся разметка для секундомера.
+  
+  Должна быть возможность создать сколько угодно экземпляров секундоментов 
+  на странице и все они будут работать независимо.
+  
+  К примеру:
+  
+  new Stopwatch(parentA);
+  new Stopwatch(parentB);
+  new Stopwatch(parentC);
+  
+  Где parent* это существующий DOM-узел. 
+*/
+const time = document.querySelector(".js-time");
+const startBtn = document.querySelector(".js-start");
+const resetBtn = document.querySelector(".js-reset");
+const lapBtn = document.querySelector(".js-take-lap");
+const lapUl = document.querySelector(".js-laps");
+
+const timer = {
+  startTime: null,
+  pauseTime: null,
+  id: null,
+  lapArr: []
+};
+
+/*
+* Логика работы кнопки Start
+*/
+function buttonHandler (event){
+  if (timer.id !== null) {
+    pause(event);
+  } else if (timer.pauseTime !== null){
+    goOn(event);
+  } else {
+    startTimer(event);
+  }
+}
+/*
+*Запускает таймер, который считает время 
+*со старта и до текущего момента времени, обновляя содержимое элемента p.js-time 
+*новым значение времени в формате xx:xx.x (минуты:секунды.сотни_миллисекунд).
+*/
+function startTimer (event){
+  console.log("Start");
+  timer.startTime = Date.now();
+  timer.id = setInterval(callback, 100);
+  resetBtn.addEventListener("click", resetTimer);
+  lapBtn.addEventListener("click", lapTimer);
+  event.target.textContent = "Pause";
+  event.target.classList.add("pause-btn-active");
+  event.target.parentElement.children[2].classList.add("lap-btn-active");
+  event.target.parentElement.children[3].classList.add("reset-btn-active");
+}
+/*
+*Callback для setInterval Расчитывает текущее состояние таймера
+*и запускает метод обновления значений на экране
+*/
+function callback (){
+  let timeNow = Date.now();
+  deltaTime = timeNow - timer.startTime;
+  updateTime(time, deltaTime);
+}
+/*
+*Полностью сбрасывает работу таймера
+*/
+function resetTimer (event){
+  console.log("Reset");
+  clearInterval(timer.id);
+  timer.id = null;
+  timer.startTime = null;
+  timer.pauseTime = null;
+  timer.lapArr = [];
+  lapUl.textContent = "";
+  resetBtn.removeEventListener("click", resetTimer);
+  lapBtn.removeEventListener("click", lapTimer);
+  updateTime(time, 0);
+  event.target.parentElement.children[1].textContent = "Start";
+  event.target.parentElement.children[1].classList.remove("pause-btn-active");
+  event.target.parentElement.children[1].classList.remove("continue-btn-active");
+  event.target.parentElement.children[2].classList.remove("lap-btn-active");
+  event.target.classList.remove("reset-btn-active");
+}
+/*
+*Приостанавливает работу таймера
+*/
+function pause (event){
+  console.log("Pause");
+  clearInterval(timer.id);
+  timer.id = null;
+  timer.pauseTime = Date.now();;
+  event.target.textContent = "Continue";
+  event.target.classList.remove("pause-btn-active");
+  event.target.classList.add("continue-btn-active");
+}
+/*
+*Продолжает работу таймера с момента остановки
+*/
+function goOn(event){
+  console.log("GoOn");
+  let timeNow = Date.now();
+  timer.startTime = timer.startTime + timeNow - timer.pauseTime;
+  timer.id = setInterval(callback, 100);
+  event.target.textContent = "Pause";
+  event.target.classList.remove("continue-btn-active")
+  event.target.classList.add("pause-btn-active");
+  timer.pauseTime = null;
+}
+/*
+* Получает значение таймера на текущий момент, сохранаяет его в массив и выводит на экран.
+*/
+function lapTimer (){
+  console.log("Lap");
+  timer.lapArr.push(getFormattedTime(timer.pauseTime===null ? Date.now() - timer.startTime : timer.pauseTime - timer.startTime));
+  const li = document.createElement("li");
+  li.textContent = timer.lapArr[timer.lapArr.length-1];
+  lapUl.append(li);
+}
+/*
+* Обновляет поле счетчика новым значением при вызове
+* аргумент time это кол-во миллисекунд
+*/
+function updateTime(elem, time) {
+  elem.textContent = getFormattedTime(time);
+}
+/*
+* Форматирует время выводимое на экран
+*/
+function getFormattedTime(time) {
+  let date = new Date(time);
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
+  let milliseconds = date.getMilliseconds();
+  minutes = minutes>=10? minutes : "0" + minutes;
+  seconds = seconds>=10? seconds : "0" + seconds;
+  milliseconds = Math.floor(milliseconds/100);
+  return (minutes + ":" + seconds + "." + milliseconds);
+}
+
+startBtn.addEventListener("click", buttonHandler);

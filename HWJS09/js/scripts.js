@@ -23,7 +23,7 @@
     
   - Когда секундомер запущен, текст кнопки button.js-start меняется на 'Pause', 
     а функционал при клике превращается в оставновку секундомера без сброса 
-    значений времени.------------------
+    значений времени.
     
     🔔 Подсказка: вам понадобится буль который описывает состояние таймера активен/неактивен.
   
@@ -64,121 +64,150 @@
   
   Где parent* это существующий DOM-узел. 
 */
-const time = document.querySelector(".js-time");
-const startBtn = document.querySelector(".js-start");
-const resetBtn = document.querySelector(".js-reset");
-const lapBtn = document.querySelector(".js-take-lap");
-const lapUl = document.querySelector(".js-laps");
+class Stopwatch{
+  constructor(parent){
+    this.startTime = null;
+    this.pauseTime = null;
+    this.id = null;
+    this.lapArr = [];
+    this.root = document.createElement("div");
+    this.root.classList.add("root");
+    parent.append(this.root);
+    this.root.innerHTML = `<div class="stopwatch">
+    <p class="time js-time">00:00.0</p>
+    <button class="btn js-start">Start</button>
+    <button class="btn js-take-lap">Lap</button>
+    <button class="btn js-reset">Reset</button>
+</div>
+<ul class="laps js-laps"></ul>`;
+    this.time = this.root.querySelector(".js-time");
+    this.startBtn = this.root.querySelector(".js-start");
+    this.resetBtn = this.root.querySelector(".js-reset");
+    this.lapBtn = this.root.querySelector(".js-take-lap");
+    this.lapUl = this.root.querySelector(".js-laps");
+    this.buttonHandler = this.buttonHandler.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.callback = this.callback.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
+    this.pause = this.pause.bind(this);
+    this.goOn = this.goOn.bind(this);
+    this.lapTimer = this.lapTimer.bind(this);
+    this.updateTime = this.updateTime.bind(this);
+    this.getFormattedTime = this.getFormattedTime.bind(this);
 
-const timer = {
-  startTime: null,
-  pauseTime: null,
-  id: null,
-  lapArr: []
-};
-
-/*
-* Вспомогательные функции
-*/
-function buttonHandler (event){
-  if (timer.id !== null) {
-    pause(event);
-  } else if (timer.pauseTime !== null){
-    goOn(event);
-  } else {
-    startTimer(event);
+    this.startBtn.addEventListener("click", this.buttonHandler);
+  }
+  /*
+  * Логика работы кнопки Start
+  */
+  buttonHandler (event){
+    console.log(this);
+    if (this.id !== null) {
+      this.pause(event);
+    } else if (this.pauseTime !== null){
+      this.goOn(event);
+    } else {
+      this.startTimer(event);
+    }
+  }
+  /*
+  *Запускает таймер, который считает время 
+  *со старта и до текущего момента времени, обновляя содержимое элемента p.js-time 
+  *новым значение времени в формате xx:xx.x (минуты:секунды.сотни_миллисекунд).
+  */
+  startTimer (event){
+    this.startTime = Date.now();
+    this.id = setInterval(this.callback, 100);
+    this.resetBtn.addEventListener("click", this.resetTimer);
+    this.lapBtn.addEventListener("click", this.lapTimer);
+    event.target.textContent = "Pause";
+    event.target.classList.add("pause-btn-active");
+    event.target.parentElement.children[2].classList.add("lap-btn-active");
+    event.target.parentElement.children[3].classList.add("reset-btn-active");
+  }
+  /*
+  *Callback для setInterval Расчитывает текущее состояние таймера
+  *и запускает метод обновления значений на экране
+  */
+  callback (){
+    let timeNow = Date.now();
+    this.deltaTime = timeNow - this.startTime;
+    this.updateTime(this.time, this.deltaTime);
+  }
+  /*
+  *Полностью сбрасывает работу таймера
+  */
+  resetTimer (event){
+    clearInterval(this.id);
+    this.id = null;
+    this.startTime = null;
+    this.pauseTime = null;
+    this.lapArr = [];
+    this.lapUl.textContent = "";
+    this.resetBtn.removeEventListener("click", this.resetTimer);
+    this.lapBtn.removeEventListener("click", this.lapTimer);
+    this.updateTime(this.time, 0);
+    event.target.parentElement.children[1].textContent = "Start";
+    event.target.parentElement.children[1].classList.remove("pause-btn-active");
+    event.target.parentElement.children[1].classList.remove("continue-btn-active");
+    event.target.parentElement.children[2].classList.remove("lap-btn-active");
+    event.target.classList.remove("reset-btn-active");
+  }
+  /*
+  *Приостанавливает работу таймера
+  */
+  pause (event){
+    clearInterval(this.id);
+    this.id = null;
+    this.pauseTime = Date.now();;
+    event.target.textContent = "Continue";
+    event.target.classList.remove("pause-btn-active");
+    event.target.classList.add("continue-btn-active");
+  }
+  /*
+  *Продолжает работу таймера с момента остановки
+  */
+  goOn(event){
+    let timeNow = Date.now();
+    this.startTime = this.startTime + timeNow - this.pauseTime;
+    this.id = setInterval(this.callback, 100);
+    this.pauseTime = null;
+    event.target.textContent = "Pause";
+    event.target.classList.remove("continue-btn-active")
+    event.target.classList.add("pause-btn-active");
+  }
+  /*
+  * Получает значение таймера на текущий момент, сохранаяет его в массив и выводит на экран.
+  */
+  lapTimer (){
+    this.lapArr.push(this.getFormattedTime(this.pauseTime===null ? Date.now() - this.startTime : this.pauseTime - this.startTime));
+    const li = document.createElement("li");
+    li.textContent = this.lapArr[this.lapArr.length-1];
+    this.lapUl.append(li);
+  }
+  /*
+  * Обновляет поле счетчика новым значением при вызове
+  * аргумент time это кол-во миллисекунд
+  */
+  updateTime(elem, time) {
+    elem.textContent = this.getFormattedTime(time);
+  }
+  /*
+  * Форматирует время выводимое на экран
+  */
+  getFormattedTime(time) {
+    let date = new Date(time);
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    let milliseconds = date.getMilliseconds();
+    minutes = minutes>=10? minutes : "0" + minutes;
+    seconds = seconds>=10? seconds : "0" + seconds;
+    milliseconds = Math.floor(milliseconds/100);
+    return (minutes + ":" + seconds + "." + milliseconds);
   }
 }
-function startTimer (event){
-  console.log("Start");
-  timer.startTime = Date.now();
-  timer.id = setInterval(callback, 100);
-  event.target.textContent = "Pause";
-  event.target.style.backgroundColor = "#0000FF";
-  // setActiveBtn(target);
-  resetBtn.addEventListener("click", resetTimer);
-  lapBtn.addEventListener("click", lapTimer);
-  event.target.parentElement.children[2].style.backgroundColor = "#FFFF00";
-  event.target.parentElement.children[2].style.color = "#FFFFFF";
-  event.target.parentElement.children[3].style.backgroundColor = "#FF0000";
-}
-function callback (){
-  let timeNow = Date.now();
-  deltaTime = timeNow - timer.startTime;
-  updateTime(time, deltaTime);
-}
-function resetTimer (event){
-  console.log("Reset");
-  clearInterval(timer.id);
-  timer.id = null;
-  timer.startTime = null;
-  timer.pauseTime = null;
-  timer.lapArr = [];
-  lapUl.textContent = "";
-  // setActiveBtn(target);
-  updateTime(time, 0);
-  // console.log(event);target.parentElement.children[1].textContent
-  event.target.parentElement.children[1].textContent = "Start";
-  event.target.parentElement.children[1].style.backgroundColor = "#00FF00";
-  event.target.style.backgroundColor = "#FF0000";
-  resetBtn.removeEventListener("click", resetTimer);
-  lapBtn.removeEventListener("click", lapTimer);
-}
-function pause (event){
-  console.log("Pause");
-  clearInterval(timer.id);
-  timer.id = null;
-  timer.pauseTime = Date.now();;
-  event.target.textContent = "Continue";
-  event.target.style.backgroundColor = "#00ff00";
-}
-function goOn(event){
-  console.log("GoOn");
-  let timeNow = Date.now();
-  timer.startTime = timer.startTime + timeNow - timer.pauseTime;
-  timer.id = setInterval(callback, 100);
-  event.target.textContent = "Pause";
-  event.target.style.backgroundColor = "#0000FF";
-  timer.pauseTime = null;
-}
-function lapTimer (){
-  console.log("Lap");
-  const li = document.createElement("li");
-  li.textContent = getFormattedTime(timer.pauseTime===null ? Date.now() - timer.startTime : timer.pauseTime - timer.startTime);
-  lapUl.append(li);
-}
-/*
-* Обновляет поле счетчика новым значением при вызове
-* аргумент time это кол-во миллисекунд
-*/
-function updateTime(elem, time) {
-  elem.textContent = getFormattedTime(time);
-}
-/*
-* Форматирует время выводимое на экран
-*/
-function getFormattedTime(time) {
-  let date = new Date(time);
-  let minutes = date.getMinutes();
-  let seconds = date.getSeconds();
-  let milliseconds = date.getMilliseconds();
-  minutes = minutes>=10? minutes : "0" + minutes;
-  seconds = seconds>=10? seconds : "0" + seconds;
-  milliseconds = Math.floor(milliseconds/100);
-  return (minutes + ":" + seconds + "." + milliseconds);
-}
-/*
-* Подсветка активной кнопки
-*/
-function setActiveBtn(event) {
-  if(event.target.classList.contains('active')) {
-    return;
-  }
-  
-  startBtn.classList.remove('active');
-  stopBtn.classList.remove('active');
-  
-  event.target.classList.add('active');
-}
 
-startBtn.addEventListener("click", buttonHandler);
+
+new Stopwatch(document.querySelector(".parentA"));
+new Stopwatch(document.querySelector(".parentB"));
+new Stopwatch(document.querySelector(".parentC"));
