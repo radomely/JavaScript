@@ -33,6 +33,6 @@ function getUserById(evt) {
       zipcode : ${data.address.zipcode}<br>`;})
     .catch(err => {
       console.log(err);
-      result.textContent = "Such user doesnt exist";
+      result.textContent = "Ошибка! Пользователя с таким id не существует";
     });
 }
