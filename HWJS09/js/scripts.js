@@ -195,10 +195,9 @@ class Stopwatch{
   * Форматирует время выводимое на экран
   */
   getFormattedTime(time) {
-    let date = new Date(time);
-    let minutes = date.getMinutes();
-    let seconds = date.getSeconds();
-    let milliseconds = date.getMilliseconds();
+    let minutes = Math.floor(time / (60 * 1000));
+    let seconds = Math.floor(time / 1000 % 60);
+    let milliseconds = Math.floor(time % 1000);
     minutes = minutes>=10? minutes : "0" + minutes;
     seconds = seconds>=10? seconds : "0" + seconds;
     milliseconds = Math.floor(milliseconds/100);
