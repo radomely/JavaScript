@@ -81,7 +81,7 @@ function userTableHTML(data) {
     usersTable.append(trHead);
   // for(el of Array.from(data["data"])){
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${data.data.id}</td><td>${data.data.name}</td><td>${data.data.age}</td><td><button class="js-update-user-button">updated user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
+    tr.innerHTML = `<td>${data.data.id}</td><td>${data.data.name}</td><td>${data.data.age}</td><td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
     usersTable.append(tr);
   // }
 }
@@ -120,7 +120,7 @@ function userAddTableHTML(data) {
     usersTable.append(trHead);
   // for(el of Array.from(data["data"])){
     const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${data.data._id}</td><td>${data.data.name}</td><td>${data.data.age}</td><td><button class="js-update-user-button">updated user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
+    tr.innerHTML = `<td>${data.data._id}</td><td>${data.data.name}</td><td>${data.data.age}</td><td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
     usersTable.append(tr);
   // }
 }
@@ -128,12 +128,35 @@ function userAddTableHTML(data) {
 
  
 usersTable.addEventListener("click", tableButtonHandler);
-function tableButtonHandler (event) {
-  console.log(event)
-    const ID = event.target.parentElement.parentElement.children[0].textContent;
+function tableButtonHandler ({target}) {
+  console.log(target);
+  if(target.classList.contains("js-delete-user-button")){
+    const ID = target.parentElement.parentElement.children[0].textContent;
     removeUser(ID);
-    event.target.parentElement.parentElement.remove();
-   }; 
+    target.parentElement.parentElement.remove();
+  }
+  if(target.classList.contains("js-update-user-button")){
+    const tr = target.parentElement.parentNode;
+    tr.innerHTML = `<td>${target.parentElement.parentElement.children[0].textContent}</td>
+    <td><input class="js-update-name-input" type="text" placeholder="${target.parentElement.parentNode.children[1].textContent}"></td>
+    <td><input class="js-update-age-input" type="text" placeholder="${target.parentElement.parentNode.children[2].textContent}"> </td>
+    <td><button class="js-save-user-button">save user</button><button class="js-delete-user-button">remove user</button></td>`;
+  }
+  if(target.classList.contains("js-save-user-button")){
+    let newName = target.parentElement.parentElement.children[1].children[0].value;
+    if (newName === ""){
+      newName = target.parentElement.parentElement.children[1].children[0].placeholder
+    }
+    let newAge = target.parentElement.parentElement.children[2].children[0].value;
+    if (newAge === ""){
+      newAge = target.parentElement.parentElement.children[2].children[0].placeholder;
+    }
+    console.log(target.parentElement.parentElement.children[1].children[0].value + " "+ target.parentElement.parentElement.children[2].children[0].value)
+    const ID = target.parentElement.parentElement.children[0].textContent;
+    const user = { name: newName, age: Number(newAge)};
+    updateUser(ID, user);
+  }
+}
  /*
 * функция removeUser(id) - должна удалять из БД юзера по указанному id.
 */
@@ -147,4 +170,22 @@ function tableButtonHandler (event) {
   .catch(err => console.log(err));
 } 
      
-
+/*
+* функция updateUser(id, user) - должна обновлять данные пользователя по id. 
+*/
+function updateUser(id, user){
+  fetch(`https://test-users-api.herokuapp.com/users/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(user),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+  .then(response => {
+    if (response.ok) return response.json();
+    throw new Error("Error in fetch");
+  })
+  .then(data => console.log(data))
+  .catch(err => console.log(err));
+}
