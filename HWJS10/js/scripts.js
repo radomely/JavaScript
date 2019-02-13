@@ -23,9 +23,93 @@
 const searchInput = document.querySelector(".js-search-input");
 const usersTable = document.querySelector(".js-users-table");
 const searchForm = document.querySelector(".js-search-form");
+const headerOfTable = `<tr><th>ID</th><th class = "w200">NAME</th><th class = "w200">AGE</th><th></th></tr>`;
 const addNewUserButton = document.querySelector(".js-add-new-user-button");
 
-searchForm.addEventListener("submit", submitHandler); 
+/*
+* функция getAllUsers() - должна вернуть текущий список всех пользователей в БД.
+*/
+function getAllUsers() {
+  return fetch("https://test-users-api.herokuapp.com/users/");
+}
+/*
+* функция getUserById(id) - должна вернуть пользователя с переданным id.
+*/
+function getUserById(id){
+  return fetch(`https://test-users-api.herokuapp.com/users/${id}`)
+}
+/*
+* функция addUser(name, age) - должна записывать в БД юзера с полями name и age.
+*/
+function addUser(name, age){
+  return fetch("https://test-users-api.herokuapp.com/users", {
+    method: 'POST',
+    body: JSON.stringify({name: name, age: age}),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+}
+/*
+* функция removeUser(id) - должна удалять из БД юзера по указанному id.
+*/
+function removeUser(id) {  
+  return fetch(`https://test-users-api.herokuapp.com/users/${id}`, {
+    method: 'DELETE'
+  })
+}  
+/*
+* функция updateUser(id, user) - должна обновлять данные пользователя по id. 
+*/
+function updateUser(id, user){
+  return fetch(`https://test-users-api.herokuapp.com/users/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(user),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    }
+  })
+}
+/*
+* функция usersTableHTML(data) - должна вывести в HTML текущий список всех пользователей в БД.
+*/
+function usersTableHTML(data) {
+  usersTable.innerHTML = headerOfTable;
+  for(el of data["data"]){
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${el.id}</td>
+                    <td>${el.name}</td>
+                    <td>${el.age}</td>
+                    <td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
+    usersTable.append(tr);
+  }
+}
+/*
+* функция userTableHTML(data) - должна вывести в HTML пользователя с переданным id.
+*/
+function userTableHTML(data) {
+  usersTable.innerHTML = headerOfTable;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${data.data.id}</td>
+                    <td>${data.data.name}</td>
+                    <td>${data.data.age}</td>
+                    <td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
+    usersTable.append(tr);
+}
+/*
+* функция userAddTableHTML(data) - выводит в HTML записанного в БД юзера с полями name и age.
+*/
+function userAddTableHTML(data) {
+  usersTable.innerHTML = headerOfTable;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td>${data.data._id}</td>
+                    <td>${data.data.name}</td>
+                    <td>${data.data.age}</td>
+                    <td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
+    usersTable.append(tr);
+}
 /*
 * Логика работы кнопки Search
 */
@@ -45,68 +129,10 @@ function submitHandler (event) {
       if(response.ok) return response.json();
       throw new Error("Error in fetch")
     })
-    .then(data => oneUserTableHTML(data))
+    .then(data => userTableHTML(data))
     .catch(err=> console.log(err));
   }
 }
-/*
-* функция getAllUsers() - должна вернуть текущий список всех пользователей в БД.
-*/
-function getAllUsers() {
-  return fetch("https://test-users-api.herokuapp.com/users/");
-}
-/*
-* функция usersTableHTML(data) - должна вывести в HTML текущий список всех пользователей в БД.
-*/
-function usersTableHTML(data) {
-  usersTable.innerHTML = "";
-  const trHead = document.createElement("tr");
-    trHead.innerHTML = `<th>ID</th><th>NAME</th><th>AGE</th><th></th>`;
-    usersTable.append(trHead);
-  for(el of data["data"]){
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${el.id}</td>
-                    <td>${el.name}</td>
-                    <td>${el.age}</td>
-                    <td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
-    usersTable.append(tr);
-  }
-}
-/*
-* функция getUserById(id) - должна вернуть пользователя с переданным id.
-*/
-function getUserById(id){
-  return fetch(`https://test-users-api.herokuapp.com/users/${id}`)
-}
-/*
-* функция userTableHTML(data) - должна вывести в HTML пользователя с переданным id.
-*/
-function oneUserTableHTML(data) {
-  usersTable.innerHTML = "";
-  const trHead = document.createElement("tr");
-    trHead.innerHTML = `<th>ID</th><th>NAME</th><th>AGE</th>`;
-    usersTable.append(trHead);
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td>${data.data.id}</td>
-                    <td>${data.data.name}</td>
-                    <td>${data.data.age}</td>
-                    <td><button class="js-update-user-button">update user</button><button class="js-delete-user-button">remove user</button></td></tr>`;
-    usersTable.append(tr);
-}
-/*
-* функция addUser(name, age) - должна записывать в БД юзера с полями name и age.
-*/
-function addUser(name, age){
-  return fetch("https://test-users-api.herokuapp.com/users", {
-    method: 'POST',
-    body: JSON.stringify({name: name, age: age}),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-}
-addNewUserButton.addEventListener("click", addNewUserButtonHandler);
 /*
 * функция addNewUserButtonHandler ({target}) - Обработчик event, должна записывать в БД юзера с полями name и age.
 */
@@ -120,21 +146,17 @@ function addNewUserButtonHandler ({target}){
   addUser(name, age)
   .then(response => {
     if (response.ok) return response.json();
-    throw new Error("Error");
+    throw new Error("Error in fetch");
   })
-  .then(data => oneUserTableHTML(data))
+  .then(data => userAddTableHTML(data))
   .catch(err => console.log(err));
   target.parentElement.parentElement.children[1].children[0].value = "";
   target.parentElement.parentElement.children[2].children[0].value = "";
 }
-
-
- 
-usersTable.addEventListener("click", tableButtonHandler);
 /*
 * tableButtonHandler ({target}) - функция для обработки нажатий кнопок внутри таблицы "remove user" "update user" "save user"
 */
-function tableButtonHandler ({target}) {
+function tableButtonsHandler ({target}) {
   const tr = target.parentElement.parentElement;
   if(target.classList.contains("js-delete-user-button")){ // Обработка кнопки "remove user" Удаление пользователя из таблицы и из базы.
     const ID = target.parentElement.parentElement.children[0].textContent;
@@ -176,25 +198,6 @@ function tableButtonHandler ({target}) {
     .catch(err => console.log(err));
   }
 }
-/*
-* функция removeUser(id) - должна удалять из БД юзера по указанному id.
-*/
-function removeUser(id) {  
-  return fetch(`https://test-users-api.herokuapp.com/users/${id}`, {
-    method: 'DELETE'
-  })
-} 
-     
-/*
-* функция updateUser(id, user) - должна обновлять данные пользователя по id. 
-*/
-function updateUser(id, user){
-  return fetch(`https://test-users-api.herokuapp.com/users/${id}`, {
-    method: 'PUT',
-    body: JSON.stringify(user),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    }
-  })
-}
+searchForm.addEventListener("submit", submitHandler);
+addNewUserButton.addEventListener("click", addNewUserButtonHandler);
+usersTable.addEventListener("click", tableButtonsHandler);
