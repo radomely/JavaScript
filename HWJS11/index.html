@@ -39,6 +39,19 @@
         </form>
         <div class="js-result"></div>
     </main>
+    <template id="template">
+        <div class="card">
+            <div class="img-wrap">
+                <img src={{img}}>
+            </div>
+            <div class="details">
+                <h2>{{name}}</h2>
+                <span>size: {{size}}", color: {{color}}, release date: {{release_date}}, price: ${{price}} </span>
+                <p>{{descr}}</p>
+            </div>
+        </div>
+    </template>
+    <script src="./js/handlebars-v4.0.12.js"></script>
     <script src="./js/scripts.js"></script>
 </body>
 </html>

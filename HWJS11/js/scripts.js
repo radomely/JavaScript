@@ -147,24 +147,17 @@ const laptops = [
     },
   ];
 
-const form = document.querySelector('.js-form'); 
+const form = document.querySelector('.js-form');
+const source = document.querySelector("#template").innerHTML.trim();
 const result = document.querySelector('.js-result'); 
 /**
  * Generates HTML markup to be inserted into the DOM
  * @param {array} arr an array of filtered objects to generate HTML
  */
-function generateMarkup (arr){ 
-const markup =  arr.reduce((acc, el) => acc + `<div class="card">
-    <div class="img-wrap">
-        <img src=${el.img}>
-    </div>
-    <div class="details">
-        <h2>${el.name}</h2>
-        <span>size: ${el.size}", color: ${el.color}, release date: ${el.release_date}, price: $${el.price} </span>
-        <p>${el.descr}</p>
-    </div>
-</div> `,'');
-result.innerHTML = markup;
+function generateMarkup (arr){
+  let tempFunc = Handlebars.compile(source);
+  let mark = arr.reduce((acc,el)=> acc + tempFunc(el),"");
+  result.innerHTML = mark;
 }
 /**
  * Filter of selected objects
@@ -172,15 +165,20 @@ result.innerHTML = markup;
  */
 function filterButtonHendler (event) {
     event.preventDefault(); 
-    const arr = [...document.querySelectorAll('.js-form input:checked')];  
-    let size = arr.filter(elem => elem.name === 'size').map(el=> el.value);
-    let color = arr.filter(elem => elem.name === 'color').map(el=> el.value);
-    let release_date = arr.filter(elem => elem.name === 'release_date').map(el=> el.value); 
-    const filter = { size, color, release_date }; 
-    const rezult = laptops.filter( el => (filter.size.length) ? filter.size.includes(String(el.size)) : true)
+    const arr = [...document.querySelectorAll('.js-form input:checked')]; 
+    const filter = {
+      size: [],
+      color: [],
+      release_date: []
+    }; 
+    filter.size = arr.filter(elem => elem.name === 'size').map(el=> el.value);
+    filter.color = arr.filter(elem => elem.name === 'color').map(el=> el.value);
+    filter.release_date = arr.filter(elem => elem.name === 'release_date').map(el=> el.value); 
+   
+    const products = laptops.filter( el => (filter.size.length) ? filter.size.includes(String(el.size)) : true)
                           .filter( el => (filter.color.length) ? filter.color.includes(el.color) : true)
                           .filter( el => (filter.release_date.length) ? filter.release_date.includes(String(el.release_date)) : true); 
-    generateMarkup(rezult);   
+    generateMarkup(products);   
 }
 /**
  * Clear all checkboxes
