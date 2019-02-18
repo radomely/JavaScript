@@ -11,6 +11,7 @@ addElementBtn.addEventListener("click",buttonHandler)
 function buttonHandler(event){
     if (arrObj.length===100) return;
     arrObj.push(new elementOne());
+    output.textContent = arr.join("");
 }
 class elementOne {
     constructor(){

@@ -175,9 +175,15 @@ function filterButtonHendler (event) {
     filter.color = arr.filter(elem => elem.name === 'color').map(el=> el.value);
     filter.release_date = arr.filter(elem => elem.name === 'release_date').map(el=> el.value); 
    
-    const products = laptops.filter( el => (filter.size.length) ? filter.size.includes(String(el.size)) : true)
-                          .filter( el => (filter.color.length) ? filter.color.includes(el.color) : true)
-                          .filter( el => (filter.release_date.length) ? filter.release_date.includes(String(el.release_date)) : true); 
+    // const products = laptops.filter( el => (filter.size.length) ? filter.size.includes(String(el.size)) : true)
+    //                       .filter( el => (filter.color.length) ? filter.color.includes(el.color) : true)
+    //                       .filter( el => (filter.release_date.length) ? filter.release_date.includes(String(el.release_date)) : true); 
+   
+    const products = laptops.filter(el =>
+      (filter.size.includes(String(el.size)) || filter.size.length === 0) &&
+      (filter.color.includes(el.color) || filter.color.length === 0) &&
+      (filter.release_date.includes(String(el.release_date)) || filter.release_date.length === 0));
+
     generateMarkup(products);   
 }
 /**
