@@ -70,7 +70,7 @@ form.addEventListener("submit", e => {
       }
     }
   }
-  fetch(`http://api.linkpreview.net/?key=5c699234ac7d511f26f3efee36d3d5d140d9a43ae8c00&q=http://${input.value}`)
+  fetch(`https://api.linkpreview.net/?key=5c699234ac7d511f26f3efee36d3d5d140d9a43ae8c00&q=http://${input.value}`)
     .then(response => response.json())
     .then(data => {
       if (data.error){
