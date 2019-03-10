@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/style.min.css">
+    <title>HWJS12</title>
+</head>
+<body>
+    <div class="main">
+        <form class="js-form">
+            <label>http://
+            <input type="text" class="js-input" placeholder="type new link to add it">
+            </label>
+            <button class="js-button">Добавить</button>
+        </form>
+        <ul class="js-card-bookmarks">
+            <template id="template">
+                <li class = "js-card">
+                    <img class="js-card-bookmarks-image" src="{{image}}" alt="card bookmarks image">
+                    <div>
+                        <a class="js-card-bookmarks-link" href="{{url}}">{{title}}</a>
+                        <p class="js-card-bookmarks-description">{{description}}</p>
+                    </div>
+                    <button class="js-button-delete-card">Удалить</button>
+                </tr>
+            </template>
+        </ul>
+    </div>
+<script src="./js/handlebars-v4.0.12.js"></script>
+<script src="./js/scripts.js"></script>
+
+</body>
+</html>
