@@ -56,7 +56,7 @@ const templateFunc = Handlebars.compile(source);
 form.addEventListener("submit", e => {
   e.preventDefault();
   const reg = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;//для валидации url
-  if (!reg.test('http://' + input.value)) {
+  if (!reg.test(input.value)) {
     alert("это невалидный url");
     return;
   }
